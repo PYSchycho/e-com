@@ -33,7 +33,7 @@ const Navbar = () => {
                             </Link>
                         </ul>
                         <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>
-                            <Link to='/login'><FontAwesomeIcon icon={faUser} /></Link></ul> <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>
+                            <Link to='/profile'><FontAwesomeIcon icon={faUser} /></Link></ul> <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>
                             <Link to='/logout'><FontAwesomeIcon icon={faRightFromBracket} className='text-white'/></Link></ul>
                     </div>
                     <div className="md:hidden flex items-center px-4 py-2 hover:border border-slate-300 rounded-lg">

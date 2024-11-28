@@ -14,7 +14,6 @@ const Cart = () => {
             try {
                 setCart(JSON.parse(storedCart));
             } catch (error) {
-                console.error("Errors", error);
                 setCart([]);
             }
         } else {
@@ -26,58 +25,46 @@ const Cart = () => {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
     }, [cart])
-    const displaycart = (updateCart) => {
-        setCart(updateCart);
-        localStorage.setItem('cart', JSON.stringify(updateCart));
-    };
-    const removeFromCart = (id) => {
-        const newCart = [...cart];
-        const itemsIndex = newCart.findIndex(item => item.id === id);
-        if (itemsIndex !== -1) {
-            newCart.splice(itemsIndex, 1);
-        }
-        displaycart(newCart);
-    };
+    useEffect(()=>{
+        let totalQuantity =0;
+        let totalAmount =0;
+        cart.forEach(item =>{
+            totalQuantity +=item.quantity;
+            totalAmount +=item.price * item.quantity;
+        })
+        setTotalQuantity(totalQuantity);
+        setTotalAmount(totalAmount);
+    },[cart])
+    const removeFromCart = (id)=>{
+        const updatedCart = cart.filter(item => item.id !== id);
+        setCart(updatedCart);
+    }
     const clearCart = () => {
         localStorage.removeItem('cart');
-        displaycart([]);
+        setCart([]);
     }
-    const setIncrease = (id) => {
-        const newCart = cart.map((items) => {
-            if (items.id === id) {
-                return { ...items, quantity: items.quantity + 1 };
-            }
-            return items;
-        });
-        displaycart(newCart);
+    const setIncrease =(id)=>{
+        const newCart = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemIndex = cart.findIndex(item => item.id === id);
+        if(itemIndex !== -1){
+            newCart[itemIndex].quantity +=1;
+        }
         localStorage.setItem('cart', JSON.stringify(newCart));
-    };
-    const setDecrease = (id) => {
-        const newCart = cart.map((items) => {
-            if (items.id === id && items.quantity > 1) {
-                return { ...items, quantity: items.quantity - 1 };
+        setCart(newCart);
+    }
+    const setDecrease = (id) =>{
+        const newCart = JSON.parse(localStorage.getItem('cart')) ||[];
+        const itemIndex = cart.findIndex(item => item.id === id);
+        if(itemIndex !== -1){
+            if(newCart[itemIndex].quantity >1){
+                newCart[itemIndex].quantity -= 1;
+            }else{
+                newCart.splice(itemIndex, 1)
             }
-            return items;
-        });
-        displaycart(newCart);
-        localStorage.setItem('cart', JSON.stringify(newCart));
-    };
-    useEffect(() => {
-        const handletotal = () => {
-            let sum = 0;
-            cart.map((items) => (sum = sum + items.quantity));
-            setTotalQuantity(sum)
-        };
-        handletotal()
-    }, [cart])
-    useEffect(() => {
-        const handleAmount = () => {
-            let total = 0;
-            cart.map((items) => (total = total + items.price * items.quantity));
-            setTotalAmount(total)
-        };
-        handleAmount()
-    }, [cart])
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            setCart(newCart);
+        }
+    }
     return (
         <div>
             <Navbar />

@@ -3,7 +3,6 @@ import Navbar from '../component/Navbar';
 const WomensClothingPage = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [cart, setCart] = useState([])
     const [search, setSearch] = useState('')
     const [sort, setSort] = useState('asc')
     useEffect(() => {
@@ -29,16 +28,16 @@ const WomensClothingPage = () => {
         fetchWomens();
     }, []);
     const handleCart = (id, name, price) => {
-        const newCart = [...cart];
-        const productIndex = newCart.findIndex(item => item.id === id);
-        if (productIndex !== -1) {
-            newCart[productIndex].quantity += 1;
-        } else {
-            newCart.push({ id, price, name, quantity: 1 })
+        const newItem = {id, name, price, quantity:1};
+        const newOne = JSON.parse(localStorage.getItem('cart')) || []
+        const ProductIndex= newOne.find(item => item.id === id);
+        if(ProductIndex ){
+          ProductIndex.quantity +=1;
+        }else{
+          newOne.push(newItem);
         }
-        setCart(newCart);
-        localStorage.setItem('cart', JSON.stringify(newCart));
-    }
+        localStorage.setItem('cart', JSON.stringify(newOne))
+      };
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
@@ -76,7 +75,7 @@ const WomensClothingPage = () => {
                         onChange={handleSort}>
                         <option value="asc" > Sort by price: Low to High</option>
                         <option value="desc" > Sort by price: High to Low</option>
-                        <option value="all"> Select all</option>
+                        <option value="all"> Reset</option>
                     </select>
                 </div>
             </div>

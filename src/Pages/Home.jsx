@@ -3,22 +3,8 @@ import Navbar from '../component/Navbar';
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState([]);
   const [search, setSearch] = useState('')
-  const [sort, setSort] = useState('asc')
-  useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      try {
-        setCart(JSON.parse(storedCart));
-      } catch (error) {
-        console.error("Errors", error);
-        setCart([]);
-      }
-    } else {
-      setCart([]);
-    }
-  }, []);
+  const [sort, setSort] = useState('all')
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -44,15 +30,15 @@ const Home = () => {
     fetchProducts();
   }, []);
   const handleCart = (id, name, price) => {
-    const newCart = [...cart];
-    const productIndex = newCart.findIndex(item => item.id === id);
-    if (productIndex !== -1) {
-      newCart[productIndex].quantity += 1;
-    } else {
-      newCart.push({ id, price, name, quantity: 1 })
+    const newItem = {id, name, price, quantity:1};
+    const newOne = JSON.parse(localStorage.getItem('cart')) || []
+    const ProductIndex= newOne.find(item => item.id === id);
+    if(ProductIndex ){
+      ProductIndex.quantity +=1;
+    }else{
+      newOne.push(newItem);
     }
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.setItem('cart', JSON.stringify(newOne))
   };
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -69,7 +55,7 @@ const Home = () => {
       } else if(sort === "desc"){
         return b.price - a.price;
       }else{
-        return a.price + b.price;
+        return 0;
       }
     })
   return (
@@ -81,7 +67,7 @@ const Home = () => {
       </section>
         <div className='flex p-2 my-2 bg-blue-300'>
           <div className='flex w-full p-1 '>
-          <input className='font-normal border-2 border-black bg-slate-200 rounded-lg px-2 h-8 w-full sm:w-full lg:w-1/3'
+          <input className='font-normal border-2 border-slate-500 bg-slate-200 rounded-lg px-2 h-8 w-full sm:w-full lg:w-1/3'
             type='text'
             placeholder='Search Your Products here...'
             value={search}
@@ -94,7 +80,7 @@ const Home = () => {
               onChange={handleSort}>
               <option value="asc" > Sort by price: Low to High</option>
               <option value="desc" > Sort by price: High to Low</option>
-              <option value="all"> Select all</option>
+              <option value="all"> Reset</option>
             </select>
           </div>
         </div>

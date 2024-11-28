@@ -27,9 +27,8 @@ const Address = () => {
       .matches(/^\d{10}$/, 'Phone Number must be 10 digits')
       .required('Phone Number is required'),
   });
-  const onSubmit = (values) => {
+  const onSubmit = () => {
     navigate("/payment")
-    localStorage.setItem('addressFormData', JSON.stringify(values));
   };
   return (
     <>

@@ -13,7 +13,8 @@ import cart from './cart';
 import Address from './Address';
 import Payment from './Payment';
 import Logout from './Logout';
-import PaymentsSuccess from '../component/Payments-success';
+import PaymentsSuccess from './Payments-success'
+import Profile from './Profile';
 const Main = () => {
   return (
     <BrowserRouter
@@ -39,6 +40,7 @@ const Main = () => {
         <Route path="/womens" element={<PrivateRoute Component={WomensClothingPage}/>}/>
         <Route path="/cart" element={<PrivateRoute Component={cart} />} />
         <Route path="/logout" element={<PrivateRoute Component={Logout} />} />
+        <Route path="/profile" element={<PrivateRoute Component={Profile} />} />
       </Routes>
     </BrowserRouter>
   )
