@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Categories from '../Pages/categories';
-import { faCartShopping,  faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const toggleMobileMenu = () => {
@@ -12,10 +12,12 @@ const Navbar = () => {
     return (
         <>
             <div>
-                <nav className='flex p-3 h-16 max-w-screen-2xl max-h-screen bg-gray-950 text-white font-bold justify-between'>
+                <nav className='flex p-3 h-16 w-screen  bg-gray-950 text-white font-bold justify-between'>
+                    <Link to='/'>
                     <div className=' flex px-4' >
                         <img className='size-12' src="./logo.png" alt="loading" />
                     </div>
+                    </Link>
                     <div className='hidden md:flex items-center space-x-6 px-6'>
                         <ul className=' px-4 py-2 hover:border-2 rounded-lg'>
                             <Link to='/'>Home</Link>
@@ -24,7 +26,7 @@ const Navbar = () => {
                             <Link to='/about'>About</Link>
                         </ul>
                         <ul className=' px-4 py-2 hover:border-2 rounded-lg'>
-                            
+
                             <Categories />
                         </ul>
                         <ul className=' px-4 py-2 hover:border-2 rounded-lg' >
@@ -33,8 +35,14 @@ const Navbar = () => {
                             </Link>
                         </ul>
                         <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>
-                            <Link to='/profile'><FontAwesomeIcon icon={faUser} /></Link></ul> <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>
-                            <Link to='/logout'><FontAwesomeIcon icon={faRightFromBracket} className='text-white'/></Link></ul>
+                            <Link to='/profile'>
+                                <FontAwesomeIcon icon={faUser} />
+                            </Link>
+                        </ul>
+                        <ul className='flex space-x-8 px-4 py-2 hover:border-2 rounded-lg'>LogOut
+                            <Link to='/logout'><FontAwesomeIcon icon={faRightFromBracket} className='text-white' />
+                            </Link>
+                        </ul>
                     </div>
                     <div className="md:hidden flex items-center px-4 py-2 hover:border border-slate-300 rounded-lg">
                         <button onClick={toggleMobileMenu} className="focus:outline-none">
@@ -51,14 +59,19 @@ const Navbar = () => {
                     <Link to="/about" className="hover:border px-4 py-2 rounded-lg border-slate-300">About</Link>
                     <div className="relative group">
                         <h1 className="cursor-pointer hover:border px-4 py-2 rounded-lg  border-slate-300">
-                            <Categories /> 
+                            <Categories />
                         </h1>
                         <categories />
                     </div>
                     <Link to="/cart" className="hover:border px-4 py-2 rounded-lg border-slate-300">
                         Cart
+                    </Link>                    
+                    <Link to="/profile" className="hover:border px-4 py-2 rounded-lg border-slate-300">
+                        Profile
+                    </Link>                    
+                    <Link to="/logout" className="hover:border px-4 py-2 rounded-lg border-slate-300">
+                    Logout
                     </Link>
-                    <Link to="/login" className="hover:border px-4 py-2 rounded-lg border-slate-300">Login</Link>
                 </div>
             )}
         </>

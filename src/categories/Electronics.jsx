@@ -60,6 +60,15 @@ const Electronics = () => {
         <div>
             <Navbar />
             <h1 className="text-3xl font-bold text-center bg-blue-400 text-white p-4 my-2">Electronics Products</h1>
+            <div className='flex bg-slate-300 max-h-screen max-w-screen'>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-g8Wh6XyXqoPb710U7j2vcyH-2RdtKgOeQ&s' className='size-32 rounded-md mx-10' alt='loading'/>
+                <img src='https://img.freepik.com/free-photo/modern-stationary-collection-arrangement_23-2149309643.jpg' className='size-32 rounded-md mx-5' alt='loading'/>
+                <img src='https://3.imimg.com/data3/TB/KQ/MY-238885/videocon-ha-500x500.jpg' className='size-32 rounded-md mx-5' alt='loading'/>
+                <img src='https://i.pinimg.com/736x/51/d3/88/51d38806d50482762c700eca5717a32f.jpg' className='size-32 rounded-md mx-5' alt='loading'/>
+                <img src='https://www.kindpng.com/picc/m/218-2181525_transparent-home-appliances-png-png-download.png' className='size-32 rounded-md mx-5' alt='loading'/>
+                <img src='https://png.pngtree.com/template/20220330/ourmid/pngtree-red-purple-festive-new-year-home-appliance-promotion-banner-image_903408.jpg' className='size-32 rounded-md mx-5' alt='loading'/>
+                <img src='https://etimg.etb2bimg.com/photo/94147047.cms' className='size-32 rounded-md mx-5' alt='loading'/>
+            </div>
             <div className='flex p-2 my-2 bg-blue-300'>
                 <div className='flex w-full p-1 '>
                     <input className='font-normal border-2 border-black bg-slate-200 rounded-lg px-2 h-8 w-full sm:w-full lg:w-1/3'

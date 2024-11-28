@@ -45,7 +45,7 @@ const Profile = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700">State</label>
                 <Field
-                  value="Chandigrh"
+                  value="Chandigarh"
                   name="state"
                   className="mt-1 block w-full p-2  bg-blue-100 border border-gray-300 rounded-md"
                 />

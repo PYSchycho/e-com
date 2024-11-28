@@ -73,8 +73,8 @@ const Cart = () => {
                 {cart.length === 0 ? (
                     <p className='text-center font-bold text-2xl'> Your cart is empty</p>
                 ) : (
-                    <div className='w-full lg:w-2/3 px-4 lg:px-8 py-5'>
-                        <table className='border-2  border-solid border-black w-full text-sm text-center text-black '>
+                    <div className='w-full lg:w-2/3 px-4 lg:px-8 py-5 rounded-xl'>
+                        <table className='border-3 bg-blue-200  border-solid border-black w-full text-sm text-center text-black '>
                             <thead className='text-sm text-gray-900'>
                                 <tr>
                                     <th scope='col' className='border-2 border-black px-6 py-3 text-left'>Product</th>
@@ -104,7 +104,7 @@ const Cart = () => {
                     </div>
                 )}
                 <div className='w-full lg:w-1/3 px-4'>
-                    <table className=' border-2 border-black border-collapse my-5 mx-4 text-sm text-center text-black'>
+                    <table className=' border-2 border-black bg-blue-200 rounded-xl border-collapse my-5 mx-4 text-sm text-center text-black'>
                         <thead className='text-sm text-gray-900 border-collapse rounded-lg'>
                             <tr>
                                 <th scope='col' className='border-2 px-6 py-3 border-black'>Total Quantity</th>

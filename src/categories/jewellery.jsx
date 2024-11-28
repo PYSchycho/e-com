@@ -60,7 +60,7 @@ const Jewellery = () => {
         <div>
             <Navbar />
             <h1 className="text-3xl font-bold text-center my-2 bg-blue-400 text-white p-2">Jewelleries</h1>
-            <div className='flex p-2 my-2 bg-blue-300'>
+            <div className='flex p-2 bg-blue-300'>
                 <div className='flex w-full p-1 '>
                     <input className='font-normal border-2 bg-slate-300 border-black rounded-lg px-2 h-8 w-full sm:w-full lg:w-1/3'
                         type='text'

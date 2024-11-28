@@ -5,37 +5,60 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState('all')
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('https://fakestoreapi.com/products', {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw Error('Failed to fetch products');
+  const [catName, setCatName] = useState('')
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("https://fakestoreapi.com/products", {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json'
         }
-        const data = await response.json();
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-      }
-      finally {
-        setLoading(false)
-      }
-    };
+      })
+      const data = await response.json();
+      setProducts(data); 
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [])
+  useEffect(() => {
+    if (fetch) {
+      const Category = async () => {
+        try {
+          setLoading(true)
+          const response = await fetch(`https://fakestoreapi.com/products/category/${catName}`, {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json'
+            }
+          });
+          if (!response.ok) {
+            throw Error('Failed to fetch products');
+          }
+          const data = await response.json();
+          setProducts(data);
+        } catch (error) {
+          console.error(error);
+        }
+        finally {
+          setLoading(false);
+        }
+      };
+      Category();
+    }
+  },[catName])
   const handleCart = (id, name, price) => {
-    const newItem = {id, name, price, quantity:1};
+    const newItem = { id, name, price, quantity: 1 };
     const newOne = JSON.parse(localStorage.getItem('cart')) || []
-    const ProductIndex= newOne.find(item => item.id === id);
-    if(ProductIndex ){
-      ProductIndex.quantity +=1;
-    }else{
+    const ProductIndex = newOne.find(item => item.id === id);
+    if (ProductIndex) {
+      ProductIndex.quantity += 1;
+    } else {
       newOne.push(newItem);
     }
     localStorage.setItem('cart', JSON.stringify(newOne))
@@ -46,18 +69,17 @@ const Home = () => {
   const handleSort = (e) => {
     setSort(e.target.value)
   }
-  const filterProducts = products.filter(product =>
-    product.title.toLowerCase().includes(search.toLowerCase())
-  )
-    .sort((a, b) => {
-      if (sort === "asc") {
-        return a.price - b.price;
-      } else if(sort === "desc"){
-        return b.price - a.price;
-      }else{
-        return 0;
-      }
-    })
+  const filterProducts = products
+  .filter(product => product.title && product.title.toLowerCase().includes(search.toLowerCase()))
+  .sort((a, b) => {
+    if (sort === "asc") {
+      return a.price - b.price;
+    } else if (sort === "desc") {
+      return b.price - a.price;
+    } else {
+      return 0;
+    }
+  });
   return (
     <div>
       <Navbar />
@@ -65,25 +87,39 @@ const Home = () => {
         <h1 className="font-bold text-center bg-blue-400 text-white text-2xl">WELCOME TO E-COMMERCE WEBSITE</h1>
         <p className="font-bold bg-blue-400 text-white text-center"><b>Discover Amazing Products At Unbeatable Prices!</b></p>
       </section>
-        <div className='flex p-2 my-2 bg-blue-300'>
-          <div className='flex w-full p-1 '>
+      <div className='grid bg-slate-300 lg:grid-cols-4 sm:grid-cols-2 py-4 gap-2'>
+        <img onClick={()=>setCatName('jewelery')}
+          src='https://www.khazanajewellery.com/wp-content/uploads/2016/06/bridal-collections.jpg'
+          alt='loading' className='size-40 mx-20 rounded-md' />
+        <img onClick={() => setCatName('electronics')}
+          src='https://5.imimg.com/data5/LR/XB/MY-3420150/electronic-product-testing.jpg'
+          alt='loading' className='size-40 mx-10 rounded-md' />
+        <img onClick={() => setCatName('women\'s clothing')}
+          src='https://www.bewakoof.com/blog/wp-content/uploads/2023/03/Fashion-Trends-for-Women.jpg'
+          className='size-40 rounded-md mx-20' alt='loading' />
+        <img onClick={() => setCatName('men\'s clothing')}
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqNeOxaXJ6UQMSpunknBW2Hhuc26YmBTssxg&s'
+          className='size-40 rounded-md mx-10' alt='loading' />
+      </div>
+      <div className='flex p-2 bg-blue-300'>
+        <div className='flex w-full p-1 '>
           <input className='font-normal border-2 border-slate-500 bg-slate-200 rounded-lg px-2 h-8 w-full sm:w-full lg:w-1/3'
             type='text'
             placeholder='Search Your Products here...'
             value={search}
             onChange={handleSearch}>
           </input>
-          </div>
-          <div className='flex justify-end bg-slate-300 rounded-lg'>
-            <select className='border-2 my-1 rounded-lg bg-slate-200'
-              value={sort}
-              onChange={handleSort}>
-              <option value="asc" > Sort by price: Low to High</option>
-              <option value="desc" > Sort by price: High to Low</option>
-              <option value="all"> Reset</option>
-            </select>
-          </div>
         </div>
+        <div className='flex justify-end bg-slate-300 rounded-lg'>
+          <select className='border-2 my-1 rounded-lg bg-slate-200'
+            value={sort}
+            onChange={handleSort}>
+            <option value="asc" > Sort by price: Low to High</option>
+            <option value="desc" > Sort by price: High to Low</option>
+            <option value="all"> Reset</option>
+          </select>
+        </div>
+      </div>
       {loading ?
         <div className="text-center">
           <div role="status">
